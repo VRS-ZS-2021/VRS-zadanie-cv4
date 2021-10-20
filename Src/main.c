@@ -51,26 +51,66 @@ int main(void)
   /* Configure external interrupt - EXTI*/
 
   	  //type your code for EXTI configuration (priority, enable EXTI, setup EXTI for input pin, trigger edge) here:
+  NVIC_SetPriority(EXTI4_IRQn, 2); // priority setup
+  NVIC_EnableIRQ(EXTI4_IRQn); // interrupt setup
 
+  /*set EXTI source PB4*/
+  SYSCFG->EXTICR[1] &= ~(0xFU);
+  SYSCFG->EXTICR[1] |= (0x1U);
+
+  //Enable interrupt from EXTI line 3
+  EXTI->IMR |= EXTI_IMR_MR4;
+
+  //Set EXTI trigger to falling edge
+  EXTI->RTSR &= ~(EXTI_IMR_MR4);
+  EXTI->FTSR |= EXTI_IMR_MR4;
 
   /* Configure GPIOB-4 pin as an input pin - button */
 
-	  //type your code for GPIO configuration here:
+  	  //type your code for GPIO configuration here:
+
+  //enable timer for GPIOB
+  RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
+
+  //input mode
+  GPIOB->MODER &= ~(GPIO_MODER_MODER4);
+
+  //pull-up
+  GPIOB->PUPDR &= ~(GPIO_PUPDR_PUPDR4);
+  GPIOB->PUPDR |= GPIO_PUPDR_PUPDR4_0;
+
+
 
 
   /* Configure GPIOA-4 pin as an output pin - LED */
 
 	  //type your code for GPIO configuration here:
 
+  //enable timer for GPIOA
+  RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+
+  //output mode
+  GPIOA->MODER &= ~(GPIO_MODER_MODER4);
+  GPIOA->MODER |= GPIO_MODER_MODER4_0;
+
+  //output type push-pull
+  GPIOA->OTYPER &= ~(GPIO_OTYPER_OT_4);
+
+  //no-pull
+  GPIOA->PUPDR &= ~(GPIO_PUPDR_PUPDR4);
+
+  //low speed
+  GPIOA->OSPEEDR &= ~(GPIO_OSPEEDER_OSPEEDR4);
 
   while (1)
   {
 	  // Modify the code below so it sets/resets used output pin connected to the LED
-	  if(switch_state)
+	  if(1)//if(switch_state)
 	  {
-		  GPIOB->BSRR |= GPIO_BSRR_BS_3;
+		  switch_state = 1;
+		  GPIOA->BSRR |= GPIO_BSRR_BS_4;
 		  for(uint16_t i=0; i<0xFF00; i++){}
-		  GPIOB->BRR |= GPIO_BRR_BR_3;
+		  GPIOA->BRR |= GPIO_BRR_BR_4;
 		  for(uint16_t i=0; i<0xFF00; i++){}
 	  }
 	  else
