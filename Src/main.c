@@ -105,9 +105,8 @@ int main(void)
   while (1)
   {
 	  // Modify the code below so it sets/resets used output pin connected to the LED
-	  if(1)//if(switch_state)   //test - po implementacii checkButtonState vratit povodnu podmienku
+	  if (switch_state)
 	  {
-		  switch_state = 1;
 		  GPIOA->BSRR |= GPIO_BSRR_BS_4;
 		  for(uint16_t i=0; i<0xFF00; i++){}
 		  GPIOA->BRR |= GPIO_BRR_BR_4;
@@ -159,13 +158,11 @@ void SystemClock_Config(void)
 
 uint8_t checkButtonState(GPIO_TypeDef* PORT, uint8_t PIN, uint8_t edge, uint8_t samples_window, uint8_t samples_required)
 {
-	  //type your code for "checkButtonState" implementation here:
-	uint8_t checkButtonState(GPIO_TypeDef* PORT, uint8_t PIN, uint8_t edge, uint8_t samples_window, uint8_t samples_required)
-{
-	  //type your code for "checkButtonState" implementation here:
-	unit8_t detection = 0, timeout = 0;
+	//type your code for "checkButtonState" implementation here:
+	uint8_t detection = 0, timeout = 0;
 	while(timeout <= samples_window){ // cyklus bezi pokial nedocita potrebny pocet vzoriek a ak nahodou nastane detekcia funkcia sa ukonci a vrati 1
-		if(!(PORT -> IDR & (1 << PIN))){ //tymto si nie som ista 
+		uint8_t actual_value= (PORT -> IDR & (1 << PIN));
+		if((actual_value && !(edge)) || (!(actual_value) && edge)) {
 			detection++;
 		}
 		else{
@@ -178,29 +175,29 @@ uint8_t checkButtonState(GPIO_TypeDef* PORT, uint8_t PIN, uint8_t edge, uint8_t 
 			return 1;
 		}
 	}
-	if ((timeout > samples_window) && (detection != samples_required)){ //ak cyklus dobehol a nenapocitali sme dostatocni pocet vzoriek iducich po sebe vrati 0
+	if (((timeout > samples_window) && (detection != samples_required))){ //ak cyklus dobehol a nenapocitali sme dostatocny pocet vzoriek iducich po sebe vrati 0
 		return 0;
 	}
 	
-}
+
 }
 
 
 void EXTI4_IRQHandler(void)
 {
 	//test - po implementacii checkButtonState odkomentovat cely if a zmazat nasledujuce 4 riadky
-	GPIOA->BSRR |= GPIO_BSRR_BS_4;
+	/*GPIOA->BSRR |= GPIO_BSRR_BS_4;
 	for(uint32_t i=0; i<0xFFF00; i++){}
 	GPIOA->BRR |= GPIO_BRR_BR_4;
-	for(uint32_t i=0; i<0xFFF00; i++){}
-	/*if(checkButtonState(GPIO_PORT_BUTTON,
+	for(uint32_t i=0; i<0xFFF00; i++){}*/
+	if(checkButtonState(GPIO_PORT_BUTTON,
 						GPIO_PIN_BUTTON,
 						BUTTON_EXTI_TRIGGER,
 						BUTTON_EXTI_SAMPLES_WINDOW,
 						BUTTON_EXTI_SAMPLES_REQUIRED))
 	{
 		switch_state ^= 1;
-	}*/
+	}
 
 	/* Clear EXTI4 pending register flag */
 
