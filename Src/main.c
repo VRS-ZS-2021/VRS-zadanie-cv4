@@ -160,6 +160,29 @@ void SystemClock_Config(void)
 uint8_t checkButtonState(GPIO_TypeDef* PORT, uint8_t PIN, uint8_t edge, uint8_t samples_window, uint8_t samples_required)
 {
 	  //type your code for "checkButtonState" implementation here:
+	uint8_t checkButtonState(GPIO_TypeDef* PORT, uint8_t PIN, uint8_t edge, uint8_t samples_window, uint8_t samples_required)
+{
+	  //type your code for "checkButtonState" implementation here:
+	unit8_t detection = 0, timeout = 0;
+	while(timeout <= samples_window){ // cyklus bezi pokial nedocita potrebny pocet vzoriek a ak nahodou nastane detekcia funkcia sa ukonci a vrati 1
+		if(!(PORT -> IDR & (1 << PIN))){ //tymto si nie som ista 
+			detection++;
+		}
+		else{
+			detection = 0;
+		}
+		
+		timeout++;
+		
+		if(detection == samples_required){
+			return 1;
+		}
+	}
+	if ((timeout > samples_window) && (detection != samples_required)){ //ak cyklus dobehol a nenapocitali sme dostatocni pocet vzoriek iducich po sebe vrati 0
+		return 0;
+	}
+	
+}
 }
 
 
