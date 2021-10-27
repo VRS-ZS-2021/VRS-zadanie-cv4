@@ -1169,16 +1169,16 @@ LOAD e:/st/stm32cubeide_1.7.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_line    0x00000000000017e3      0x4fd ./Src/system_stm32f3xx.o
  .debug_line    0x0000000000001ce0       0x81 ./Startup/startup_stm32f303k8tx.o
 
-.debug_str      0x0000000000000000    0x6b14a
+.debug_str      0x0000000000000000    0x6b149
  .debug_str     0x0000000000000000    0x683e5 ./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_utils.o
                                       0x6859d (size before relaxing)
- .debug_str     0x00000000000683e5     0x2c0e ./Src/main.o
-                                      0x6a509 (size before relaxing)
- .debug_str     0x000000000006aff3       0xb8 ./Src/stm32f3xx_it.o
+ .debug_str     0x00000000000683e5     0x2c0d ./Src/main.o
+                                      0x6a508 (size before relaxing)
+ .debug_str     0x000000000006aff2       0xb8 ./Src/stm32f3xx_it.o
                                       0x69d5f (size before relaxing)
- .debug_str     0x000000000006b0ab       0x6e ./Src/system_stm32f3xx.o
+ .debug_str     0x000000000006b0aa       0x6e ./Src/system_stm32f3xx.o
                                       0x635a9 (size before relaxing)
- .debug_str     0x000000000006b119       0x31 ./Startup/startup_stm32f303k8tx.o
+ .debug_str     0x000000000006b118       0x31 ./Startup/startup_stm32f303k8tx.o
                                          0x6e (size before relaxing)
 
 .comment        0x0000000000000000       0x53

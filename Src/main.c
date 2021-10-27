@@ -183,11 +183,6 @@ uint8_t checkButtonState(GPIO_TypeDef* PORT, uint8_t PIN, uint8_t edge, uint8_t 
 
 void EXTI4_IRQHandler(void)
 {
-	//test - po implementacii checkButtonState odkomentovat cely if a zmazat nasledujuce 4 riadky
-	/*GPIOA->BSRR |= GPIO_BSRR_BS_4;
-	for(uint32_t i=0; i<0xFFF00; i++){}
-	GPIOA->BRR |= GPIO_BRR_BR_4;
-	for(uint32_t i=0; i<0xFFF00; i++){}*/
 	if(checkButtonState(GPIO_PORT_BUTTON,
 						GPIO_PIN_BUTTON,
 						BUTTON_EXTI_TRIGGER,

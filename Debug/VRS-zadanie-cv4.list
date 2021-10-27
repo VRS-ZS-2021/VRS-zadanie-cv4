@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   00001d61  00000000  00000000  000235a3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0006b14a  00000000  00000000  00025304  2**0
+ 18 .debug_str    0006b149  00000000  00000000  00025304  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  0009044e  2**0
+ 19 .comment      00000053  00000000  00000000  0009044d  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000888  00000000  00000000  000904a4  2**2
+ 20 .debug_frame  00000888  00000000  00000000  000904a0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1069,9 +1069,9 @@ void EXTI4_IRQHandler(void)
 	GPIOA->BRR |= GPIO_BRR_BR_4;
 	for(uint32_t i=0; i<0xFFF00; i++){}*/
 	if(checkButtonState(GPIO_PORT_BUTTON,
- 8000782:	2384      	movs	r3, #132	; 0x84
+ 8000782:	232c      	movs	r3, #44	; 0x2c
  8000784:	9300      	str	r3, [sp, #0]
- 8000786:	23e8      	movs	r3, #232	; 0xe8
+ 8000786:	2390      	movs	r3, #144	; 0x90
  8000788:	2200      	movs	r2, #0
  800078a:	2104      	movs	r1, #4
  800078c:	480a      	ldr	r0, [pc, #40]	; (80007b8 <EXTI4_IRQHandler+0x3c>)
