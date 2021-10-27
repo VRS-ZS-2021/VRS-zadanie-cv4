@@ -162,7 +162,7 @@ uint8_t checkButtonState(GPIO_TypeDef* PORT, uint8_t PIN, uint8_t edge, uint8_t 
 	uint8_t detection = 0, timeout = 0;
 	while(timeout <= samples_window){ // cyklus bezi pokial nedocita potrebny pocet vzoriek a ak nahodou nastane detekcia funkcia sa ukonci a vrati 1
 		uint8_t actual_value= (PORT -> IDR & (1 << PIN));
-		if((actual_value && !(edge)) || (!(actual_value) && edge)) {
+		if((actual_value && (edge)) || (!(actual_value) && !(edge))) {
 			detection++;
 		}
 		else{
@@ -179,7 +179,7 @@ uint8_t checkButtonState(GPIO_TypeDef* PORT, uint8_t PIN, uint8_t edge, uint8_t 
 		return 0;
 	}
 	
-
+	return 0;
 }
 
 
